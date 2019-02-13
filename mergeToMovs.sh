@@ -1,0 +1,2 @@
+#!/bin/bash
+for i in wavs/*; do ffmpeg -loop 1 -f image2 -i black.png -loop 1 -f image2 -i /home/kof/sketchbook/txtToPng/output/`basename -s .wav $i`.png -i $i -shortest -filter_complex "[0:v][1:v]overlay=210:540,drawtext=fontfile=/home/kof/.fonts/Executive-Regular.otf:text='`basename -s .wav $i`': fontcolor=white: fontsize=24: box=1: boxcolor=black@0.5:boxborderw=5: x=(w-text_w)/2: y=(h-text_h)/2-50" -map 0:v -map 2:a -c:v prores_ks -profile:v 1 -ac 2 -c:a pcm_s16le -y movs/`basename -s .wav $i`.mov; done
